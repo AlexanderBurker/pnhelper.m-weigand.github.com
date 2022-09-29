@@ -40,7 +40,7 @@ class Extension {
         this._driver = null;
         this._settings_indicator = null;
         this._refresh_indicator = null;
-        this._warm_indicator = null;
+        this._m_warm_backlight_slider = null;
     }
 
     enable() {
@@ -60,7 +60,7 @@ class Extension {
     }
 
     _add_warm_indicator_to_main_gnome_menu() {
-        this.m_warm_backlight_slider = new PopupMenu.PopupBaseMenuItem({ activate: true });
+        this._m_warm_backlight_slider = new PopupMenu.PopupBaseMenuItem({ activate: true });
 
         this._warm_backlight_slider = new Slider.Slider(this._driver.warm_brightness);
         this._sliderChangedId = this._warm_backlight_slider.connect('notify::value',
@@ -71,19 +71,19 @@ class Extension {
             icon_name: 'weather-clear-night-symbolic',
             style_class: 'popup-menu-icon',
         });
-        this.m_warm_backlight_slider.add(icon);
-        this.m_warm_backlight_slider.add_child(this._warm_backlight_slider);
-        this.m_warm_backlight_slider.connect('button-press-event', (actor, event) => {
+        this._m_warm_backlight_slider.add(icon);
+        this._m_warm_backlight_slider.add_child(this._warm_backlight_slider);
+        this._m_warm_backlight_slider.connect('button-press-event', (actor, event) => {
             return this._warm_backlight_slider.startDragging(event);
         });
-        this.m_warm_backlight_slider.connect('key-press-event', (actor, event) => {
+        this._m_warm_backlight_slider.connect('key-press-event', (actor, event) => {
             return this._warm_backlight_slider.emit('key-press-event', event);
         });
-        this.m_warm_backlight_slider.connect('scroll-event', (actor, event) => {
+        this._m_warm_backlight_slider.connect('scroll-event', (actor, event) => {
             return this._warm_backlight_slider.emit('scroll-event', event);
         });
 
-        Main.panel.statusArea.aggregateMenu.menu.addMenuItem(this.m_warm_backlight_slider, 2);
+        Main.panel.statusArea.aggregateMenu.menu.addMenuItem(this._m_warm_backlight_slider, 2);
     }
 
     _warm_backlight_slider_changed() {
@@ -235,8 +235,8 @@ class Extension {
         this._driver.destroy();
         this._driver = null;
 
-        this._warm_indicator.destroy();
-        this._warm_indicator = null;
+        this._m_warm_backlight_slider.destroy();
+        this._m_warm_backlight_slider = null;
         this._settings_indicator.destroy();
         this._settings_indicator = null;
         this._refresh_indicator.destroy();
