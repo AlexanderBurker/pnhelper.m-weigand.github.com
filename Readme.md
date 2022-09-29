@@ -45,6 +45,8 @@ SUBSYSTEM=="module", KERNEL=="rockchip_ebc", RUN+="/bin/chgrp video /sys/module/
 DRIVER=="rockchip-ebc", RUN+="/bin/chgrp video /sys/%p/power/control", RUN+="/bin/chmod g+w /sys/%p/power/control"
 ```
 
+The warm backlight needs write access as well: [83-backlight.rules](https://gitlab.com/hrdl/pinenote-shared/-/blob/main/etc/udev/rules.d/83-backlight.rules)
+
 Also ensure that your user is in the video group (as root).
 
 ```
