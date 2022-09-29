@@ -232,7 +232,6 @@ class Extension {
     }
 
     disable() {
-        this._driver.destroy();
         this._driver = null;
 
         this._m_warm_backlight_slider.destroy();
